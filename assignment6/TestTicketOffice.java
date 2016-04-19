@@ -86,7 +86,7 @@ public class TestTicketOffice {
 			e.printStackTrace();
 		}
 
-	}*/
+	}
 
 		@Test
 		public void randomNumberOfClientsTest () {
@@ -102,8 +102,48 @@ public class TestTicketOffice {
 				final TicketClient c1 = new TicketClient(clientName + i);
 				c1.requestTicket();
 			}
-
-
+		}*/
+		
+		@Test
+		public void randomNumberOfClientsTest () {
+			try {
+				TicketServer.start(16792);
+			} catch (Exception e) {
+				fail();
+			}
+			Random r = new Random();
+			int numberOfClients = r.nextInt(1000 - 100) + 100;
+			String clientName = "client ";
+			final TicketClient c1 = new TicketClient("Booth A");
+			final TicketClient c2 = new TicketClient("Booth B");
+			final TicketClient c3 = new TicketClient("Booth C");
+			for (int i = 0; i <= numberOfClients; i++){
+				Thread t1 = new Thread() {
+					public void run() {
+						c1.requestTicket();
+					}
+				};
+				Thread t2 = new Thread() {
+					public void run() {
+						c2.requestTicket();
+					}
+				};
+				Thread t3 = new Thread() {
+					public void run() {
+						c3.requestTicket();
+					}
+				};
+				t1.start();
+				t2.start();
+				t3.start();
+				try {
+					t1.join();
+					t2.join();
+					t3.join();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 }
