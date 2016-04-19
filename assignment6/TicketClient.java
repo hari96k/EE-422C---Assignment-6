@@ -22,6 +22,7 @@ class ThreadedTicketClient implements Runnable {
 
 
 	public void run() {
+
 		System.out.flush();
 		try {
 			Socket echoSocket = new Socket(hostname, TicketServer.PORT);
