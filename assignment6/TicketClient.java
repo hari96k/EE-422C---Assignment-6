@@ -12,12 +12,14 @@ class ThreadedTicketClient implements Runnable {
 	String hostname = "127.0.0.1";
 	String threadname = "X";
 	TicketClient sc;
+	public static String serverOutput;
 
 	public ThreadedTicketClient(TicketClient sc, String hostname, String threadname) {
 		this.sc = sc;
 		this.hostname = hostname;
 		this.threadname = threadname;
 	}
+
 
 	public void run() {
 		System.out.flush();
@@ -26,9 +28,13 @@ class ThreadedTicketClient implements Runnable {
 			PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			out.println("request");
+			System.out.println("Client sent request");
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+			if (!in.ready()) {
+				if (in.readLine().equals("request"))
+					serverOutput = in.readLine();
+			}
 			echoSocket.close();
-			//in.read();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -58,6 +64,7 @@ public class TicketClient {
 	void requestTicket() {
 		//int[] seat = bestAvailableSeat(ticket);
 		tc.run();
+		System.out.println(ThreadedTicketClient.serverOutput);
 		System.out.println(hostName + "," + threadName + " got one ticket");
 	}
 

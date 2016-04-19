@@ -21,6 +21,7 @@ public class TicketServer {
 	public static void start(int portNumber) throws IOException {
 		if (!initialized){
 			ticket = createTickets();
+			initialized = true;
 		}
         if (Thread.activeCount() < MAXPARALLELTHREADS) {
             PORT = portNumber;
@@ -144,14 +145,15 @@ class ThreadedTicketServer implements Runnable {
 			Socket clientSocket = serverSocket.accept();
 			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			if (in.ready()) {
-				while (in.readLine().equals("request")) {
-					int[] seat = bestAvailableSeat(ticket);
-					String output = "" + seat[0] + seat[1] + seat[2] + seat[3];
-					out.print(output);
-				}
+			while(!in.readLine().equals("request")) {
 			}
-		} catch (IOException e) {
+			int[] seat = bestAvailableSeat(ticket);
+			String output = "" + seat[0] + seat[1] + seat[2] + seat[3];
+			System.out.println("Server processed a request");
+			out.print(output);
+			System.out.println("Server sent: " + output);
+			}
+		 catch (IOException e) {
 			e.printStackTrace();
 		}
 
