@@ -28,7 +28,7 @@ class ThreadedTicketClient implements Runnable {
 			out.println("request");
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 			echoSocket.close();
-			in.read();
+			//in.read();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
