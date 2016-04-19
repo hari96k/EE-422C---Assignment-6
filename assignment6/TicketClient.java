@@ -69,7 +69,13 @@ public class TicketClient {
 
 	String printTicketSeat(String name){
 		String []array = name.split("");
-		String output = hostName + ", " + threadName + " got seat" + " " + 1 + array[2] + " in row " + array[1];
+		String output;
+		if(array[4].equals("-")){
+			output = hostName + ", " + threadName + " got seat" + " " + array[2] + array[3] + " in row " + array[1];
+		}
+		else{
+			output = hostName + ", " + threadName + " got seat" + " " + array[2] + " in row " + array[1];
+		}
 		return output;
 	}
 	

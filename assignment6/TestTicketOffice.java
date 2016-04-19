@@ -16,7 +16,7 @@ public class TestTicketOffice {
 		}
 		TicketClient client = new TicketClient();
 		client.requestTicket();
-	}*/
+	}
 
 	@Test
 	public void testServerCachedHardInstance() {
@@ -30,9 +30,9 @@ public class TestTicketOffice {
 		client1.requestTicket();
 		client2.requestTicket();
 
-	}
+	}*/
 	
-	/*
+	
 	@Test
 	public void twoNonConcurrentServerTest() {
 		try {
@@ -48,6 +48,7 @@ public class TestTicketOffice {
 		c3.requestTicket();
 	}
 
+	/*
 	@Test
 	public void twoConcurrentServerTest() {
 		try {
