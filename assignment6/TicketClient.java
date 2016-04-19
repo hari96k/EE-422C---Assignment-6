@@ -61,10 +61,17 @@ public class TicketClient {
 	void requestTicket() {
 		//int[] seat = bestAvailableSeat(ticket);
 		tc.run();
+		String output = printTicketSeat(ThreadedTicketClient.serverOutput);
 		System.out.println("Client received: " + ThreadedTicketClient.serverOutput);
-		System.out.println(hostName + "," + threadName + " got one ticket");
+		System.out.println(output);
 	}
 
+	String printTicketSeat(String name){
+		String []array = name.split("");
+		String output = hostName + ", " + threadName + " got seat" + " " + 1 + array[2] + " in row " + array[1];
+		return output;
+	}
+	
 	void sleep() {
 		try {
 			Thread.sleep(100);

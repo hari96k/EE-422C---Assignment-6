@@ -18,7 +18,7 @@ public class TestTicketOffice {
 		client.requestTicket();
 	}
 
-	/*@Test
+	@Test
 	public void testServerCachedHardInstance() {
 		try {
 			TicketServer.start(16790);
@@ -31,7 +31,8 @@ public class TestTicketOffice {
 		client2.requestTicket();
 		
 	}
-
+	
+	/*
 	@Test
 	public void twoNonConcurrentServerTest() {
 		try {

@@ -45,7 +45,7 @@ public class TicketServer {
 		return tickets;	
 	}
 	
-	public static int[] bestAvailableSeat(int[][]tickets){
+	public synchronized static int[] bestAvailableSeat(int[][]tickets){
 		int []seat = new int[4]; //0 holds section, 1 holds row, 2 holds seat. 3 holds a flag
 		
 		seat = checkSectionA(tickets);
@@ -62,7 +62,7 @@ public class TicketServer {
 		return seat;	
 	}
 	
-	private static int[] checkSectionA(int[][] tickets){
+	private synchronized static int[] checkSectionA(int[][] tickets){
 		int []seat = new int[4]; //0 holds section, 1 holds row, 2 holds seat. 3 holds a flag
 		for (int i = 1; i<14; i++){
 			for (int j = 8; j<22; j++){
@@ -76,7 +76,7 @@ public class TicketServer {
 		return seat;
 	}
 	
-	private static int[] checkSectionB(int[][] tickets){
+	private synchronized static int[] checkSectionB(int[][] tickets){
 		int []seat = new int[4]; //0 holds section, 1 holds row, 2 holds seat. 3 holds a flag
 		for (int i = 1; i<14; i++){
 			for (int j = 1; j<8; j++){
@@ -95,7 +95,7 @@ public class TicketServer {
 		return seat;
 	}
 
-	private static int[] checkSectionC(int[][] tickets){
+	private synchronized static int[] checkSectionC(int[][] tickets){
 		int []seat = new int[4]; //0 holds section, 1 holds row, 2 holds seat. 3 holds a flag
 		for (int i = 14; i<27; i++){
 			for (int j = 8; j<22; j++){
@@ -109,7 +109,7 @@ public class TicketServer {
 		return seat;
 	}
 	
-	private static int[] checkSectionD(int[][] tickets){
+	private synchronized static int[] checkSectionD(int[][] tickets){
 		int []seat = new int[4]; //0 holds section, 1 holds row, 2 holds seat. 3 holds a flag
 		for (int i = 14; i<27; i++){
 			for (int j = 1; j<8; j++){
