@@ -138,20 +138,23 @@ class ThreadedTicketServer implements Runnable {
 	TicketClient sc;
 
 	public void run() {
-		// TODO 422C
+		System.out.flush();
 		ServerSocket serverSocket;
 		try {
 			serverSocket = new ServerSocket(TicketServer.PORT);
 			Socket clientSocket = serverSocket.accept();
 			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			while(!in.readLine().equals("request")) {
+			while(true) {
+				String input = in.readLine();
+				if (input == null)
+					break;
+				int[] seat = bestAvailableSeat(ticket);
+				String output = "" + seat[0] + seat[1] + seat[2] + seat[3];
+				System.out.println("Server processed a request");
+				out.println(output);
+				System.out.println("Server sent: " + output);
 			}
-			int[] seat = bestAvailableSeat(ticket);
-			String output = "" + seat[0] + seat[1] + seat[2] + seat[3];
-			System.out.println("Server processed a request");
-			out.print(output);
-			System.out.println("Server sent: " + output);
 			}
 		 catch (IOException e) {
 			e.printStackTrace();

@@ -30,10 +30,7 @@ class ThreadedTicketClient implements Runnable {
 			out.println("request");
 			System.out.println("Client sent request");
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-			if (!in.ready()) {
-				if (in.readLine().equals("request"))
-					serverOutput = in.readLine();
-			}
+			serverOutput = in.readLine();
 			echoSocket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +61,7 @@ public class TicketClient {
 	void requestTicket() {
 		//int[] seat = bestAvailableSeat(ticket);
 		tc.run();
-		System.out.println(ThreadedTicketClient.serverOutput);
+		System.out.println("Client received: " + ThreadedTicketClient.serverOutput);
 		System.out.println(hostName + "," + threadName + " got one ticket");
 	}
 
