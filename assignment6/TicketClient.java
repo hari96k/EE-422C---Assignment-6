@@ -5,16 +5,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import static assignment6.TicketServer.bestAvailableSeat;
-import static assignment6.TicketServer.ticket;
-
 class ThreadedTicketClient implements Runnable {
-	String hostname = "127.0.0.1";
-	String threadname = "X";
-	TicketClient sc;
-	public static String serverOutput;
+    private String hostname = "127.0.0.1";
+    private String threadname = "X";
+    private TicketClient sc;
+	static String serverOutput;
 
-	public ThreadedTicketClient(TicketClient sc, String hostname, String threadname) {
+	ThreadedTicketClient(TicketClient sc, String hostname, String threadname) {
 		this.sc = sc;
 		this.hostname = hostname;
 		this.threadname = threadname;
@@ -39,13 +36,13 @@ class ThreadedTicketClient implements Runnable {
 	}
 }
 
-public class TicketClient {
-	ThreadedTicketClient tc;
-	String result = "dummy";
-	String hostName = "";
-	String threadName = "";
+class TicketClient {
+	private ThreadedTicketClient tc;
+	//String result = "dummy";
+	private String hostName = "";
+	private String threadName = "";
 
-	TicketClient(String hostname, String threadname) {
+	private TicketClient(String hostname, String threadname) {
 		tc = new ThreadedTicketClient(this, hostname, threadname);
 		hostName = hostname;
 		threadName = threadname;
@@ -67,7 +64,7 @@ public class TicketClient {
 		System.out.println(output);
 	}
 
-	String printTicketSeat(String name){
+	private String printTicketSeat(String name){
 		String []array = name.split("");
 		String output;
 		if(array[4].equals("-")){

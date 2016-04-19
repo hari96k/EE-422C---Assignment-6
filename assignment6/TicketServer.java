@@ -10,15 +10,15 @@ import java.net.Socket;
 import static assignment6.TicketServer.bestAvailableSeat;
 import static assignment6.TicketServer.ticket;
 
-public class TicketServer {
+class TicketServer {
 	static int PORT = 2222;
 	// EE422C: no matter how many concurrent requests you get,
 	// do not have more than three servers running concurrently
-	final static int MAXPARALLELTHREADS = 3;
-	public static int[][] ticket;
-	public static boolean initialized = false;
+	private final static int MAXPARALLELTHREADS = 3;
+	static int[][] ticket;
+	private static boolean initialized = false;
 
-	public static void start(int portNumber) throws IOException {
+	static void start(int portNumber) throws IOException {
 		if (!initialized){
 			ticket = createTickets();
 			initialized = true;
@@ -35,7 +35,7 @@ public class TicketServer {
 	// section B is rows [1,13] seats [1,7] and [22,28]
 	// section C is rows [14,26] seats [8,21]
 	// section D is rows [14,26] seats [1,7] and [22,28]
-	public static int[][] createTickets(){
+	private static int[][] createTickets(){
 		int [][]tickets = new int[27][29];
 		for (int i = 1; i<27; i++){
 			for (int j = 1; j<29; j++){
@@ -45,7 +45,7 @@ public class TicketServer {
 		return tickets;	
 	}
 	
-	public synchronized static int[] bestAvailableSeat(int[][]tickets){
+	synchronized static int[] bestAvailableSeat(int[][] tickets){
 		int []seat = new int[4]; //0 holds section, 1 holds row, 2 holds seat. 3 holds a flag
 		
 		seat = checkSectionA(tickets);
@@ -132,10 +132,10 @@ public class TicketServer {
 
 class ThreadedTicketServer implements Runnable {
 
-	String hostname = "127.0.0.1";
-	String threadname = "X";
-	String testcase;
-	TicketClient sc;
+	//String hostname = "127.0.0.1";
+	//String threadname = "X";
+	//String testcase;
+	//TicketClient sc;
 
 	public void run() {
 		System.out.flush();
@@ -155,7 +155,7 @@ class ThreadedTicketServer implements Runnable {
 					System.out.println("Server sent: " + output);
 				}
 			}
-			}
+		}
 		 catch (IOException e) {
 			e.printStackTrace();
 		}

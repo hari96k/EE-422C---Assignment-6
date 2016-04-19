@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class TestTicketOffice {
 
-	public static int score = 0;
+//	public static int score = 0;
 
 /*	@Test
 	public void basicServerTest() {
@@ -30,7 +30,7 @@ public class TestTicketOffice {
 		client1.requestTicket();
 		client2.requestTicket();
 
-	}*/
+	}
 	
 	
 	@Test
@@ -46,9 +46,8 @@ public class TestTicketOffice {
 		c1.requestTicket();
 		c2.requestTicket();
 		c3.requestTicket();
-	}
+	}*/
 
-	/*
 	@Test
 	public void twoConcurrentServerTest() {
 		try {
@@ -86,5 +85,5 @@ public class TestTicketOffice {
 		}
 
 	}
-*/
+
 }
