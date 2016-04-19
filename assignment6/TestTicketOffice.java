@@ -3,6 +3,8 @@ package assignment6;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 
+import java.util.Random;
+
 public class TestTicketOffice {
 
 //	public static int score = 0;
@@ -46,7 +48,7 @@ public class TestTicketOffice {
 		c1.requestTicket();
 		c2.requestTicket();
 		c3.requestTicket();
-	}*/
+	}
 
 	@Test
 	public void twoConcurrentServerTest() {
@@ -84,6 +86,24 @@ public class TestTicketOffice {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
+
+		@Test
+		public void randomNumberOfClientsTest () {
+			try {
+				TicketServer.start(16792);
+			} catch (Exception e) {
+				fail();
+			}
+			Random r = new Random();
+			int numberOfClients = r.nextInt(1000 - 100) + 100;
+			String clientName = "client ";
+			for (int i = 0; i <= numberOfClients; i++){
+				final TicketClient c1 = new TicketClient(clientName + i);
+				c1.requestTicket();
+			}
+
+
+		}
 
 }
