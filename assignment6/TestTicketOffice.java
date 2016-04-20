@@ -102,8 +102,9 @@ public class TestTicketOffice {
 				final TicketClient c1 = new TicketClient(clientName + i);
 				c1.requestTicket();
 			}
-		}*/
-		
+		}
+		*/
+
 		@Test
 		public void randomNumberOfClientsTest () {
 			try {

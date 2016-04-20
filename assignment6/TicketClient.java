@@ -9,7 +9,7 @@ class ThreadedTicketClient implements Runnable {
     private String hostname = "127.0.0.1";
     private String threadname = "X";
     private TicketClient sc;
-	static String serverOutput;
+	private String serverOutput;
 
 	ThreadedTicketClient(TicketClient sc, String hostname, String threadname) {
 		this.sc = sc;
@@ -17,8 +17,11 @@ class ThreadedTicketClient implements Runnable {
 		this.threadname = threadname;
 	}
 
+	public String getServerOutput(){
+		return serverOutput;
+	}
 
-	public void run() {
+	public synchronized void run() {
 
 		System.out.flush();
 		try {
@@ -41,6 +44,7 @@ class TicketClient {
 	//String result = "dummy";
 	private String hostName = "";
 	private String threadName = "";
+	private String serverOutput;
 
 	private TicketClient(String hostname, String threadname) {
 		tc = new ThreadedTicketClient(this, hostname, threadname);
@@ -56,15 +60,17 @@ class TicketClient {
 		this("localhost", "unnamed client");
 	}
 
+
 	void requestTicket() {
 		//int[] seat = bestAvailableSeat(ticket);
 		tc.run();
-		if (ThreadedTicketClient.serverOutput.equals("0 0 0 0")){
+		String serverOutput = tc.getServerOutput();
+		if (serverOutput.equals("0 0 0 0")){
 			System.out.println("Sorry, the show is sold out!");
 		}
 		else {
-			String output = printTicketSeat(ThreadedTicketClient.serverOutput);
-			//System.out.println("Client received: " + ThreadedTicketClient.serverOutput);
+			String output = printTicketSeat(serverOutput);
+			//System.out.println("Client received: " + serverOutput);
 			System.out.println(output);
 		}
 	}
