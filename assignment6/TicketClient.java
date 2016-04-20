@@ -72,7 +72,9 @@ class TicketClient {
 	private String printTicketSeat(String name){
 		String []array = name.split("[ ]+");
 		int rowNumber = Integer.parseInt(array[1]);
-		String output = hostName + ", " + threadName + " got seat" + " " + array[2] + " in row " + getCharForNumber(rowNumber);
+		int section = Integer.parseInt(array[0]);
+		String output = hostName + ", " + threadName + " reserved seat" + " " + array[2] + " in row " 
+				+ getCharForNumber(rowNumber) + " in section " + getCharForNumber(section);
 		return output;
 	}
 	
