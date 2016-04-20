@@ -1,3 +1,8 @@
+/* Sahil Shah and Hari Kosuru
+ * ss63683 and hk8663
+ * EE 422C - Assignment 6
+ */
+
 package assignment6;
 
 import static org.junit.Assert.fail;
@@ -97,7 +102,7 @@ public class TestTicketOffice {
 				fail();
 			}
 			Random r = new Random();
-			int numberOfClients = r.nextInt(1000 - 100) + 100;
+			int numberOfClients = r.nextInt(1000 - 800) + 800;
 			final TicketClient c1 = new TicketClient("Booth A");
 			for (int i = 0; i <= numberOfClients; i++){
 				c1.requestTicket();
@@ -114,7 +119,7 @@ public class TestTicketOffice {
 				fail();
 			}
 			Random r = new Random();
-			int numberOfClients = r.nextInt(1000 - 100) + 100;
+			int numberOfClients = r.nextInt(1000 - 800) + 800;
 			String clientName = "client ";
 			final TicketClient c1 = new TicketClient("Booth A");
 			final TicketClient c2 = new TicketClient("Booth B");
