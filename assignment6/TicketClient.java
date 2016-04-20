@@ -45,6 +45,7 @@ class TicketClient {
 	private String hostName = "";
 	private String threadName = "";
 	private String serverOutput;
+	boolean flag = true;
 
 	private TicketClient(String hostname, String threadname) {
 		tc = new ThreadedTicketClient(this, hostname, threadname);
@@ -66,7 +67,10 @@ class TicketClient {
 		tc.run();
 		String serverOutput = tc.getServerOutput();
 		if (serverOutput.equals("0 0 0 0")){
-			System.out.println("Sorry, the show is sold out!");
+			if (flag){
+				System.out.println("Sorry, the show is sold out!");
+				flag = false;
+			}
 		}
 		else {
 			String output = printTicketSeat(serverOutput);
@@ -79,7 +83,7 @@ class TicketClient {
 		String []array = name.split("[ ]+");
 		int rowNumber = Integer.parseInt(array[1]);
 		int section = Integer.parseInt(array[0]);
-		String output = hostName + ", " + threadName + " reserved seat" + " " + array[2] + " in row " 
+		String output = threadName + " reserved seat" + " " + array[2] + " in row " 
 				+ getCharForNumber(rowNumber) + " in section " + getCharForNumber(section);
 		return output;
 	}

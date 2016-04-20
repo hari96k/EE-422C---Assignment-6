@@ -88,6 +88,7 @@ public class TestTicketOffice {
 
 	}
 
+		
 		@Test
 		public void randomNumberOfClientsTest () {
 			try {
@@ -97,14 +98,14 @@ public class TestTicketOffice {
 			}
 			Random r = new Random();
 			int numberOfClients = r.nextInt(1000 - 100) + 100;
-			String clientName = "client ";
+			final TicketClient c1 = new TicketClient("Booth A");
 			for (int i = 0; i <= numberOfClients; i++){
-				final TicketClient c1 = new TicketClient(clientName + i);
 				c1.requestTicket();
 			}
 		}
 		*/
 
+		
 		@Test
 		public void randomNumberOfClientsTest () {
 			try {
