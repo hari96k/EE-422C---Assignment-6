@@ -23,6 +23,7 @@ class TicketServer {
 	static int[][] ticket;
 	private static boolean initialized = false;
 
+	// Stars the server thread (only once)
 	static void start(int portNumber) throws IOException {
 		if (!initialized){
 			ticket = createTickets();
@@ -35,11 +36,13 @@ class TicketServer {
             t.start();
         }
 	}
-	
-	// section A is rows [1,13] seats [8,21]
-	// section B is rows [1,13] seats [1,7] and [22,28]
-	// section C is rows [14,26] seats [8,21]
-	// section D is rows [14,26] seats [1,7] and [22,28]
+
+	// We use a two-dimensional array for recording our seats
+
+	// section A is rows [1,13] seats [108,121]
+	// section B is rows [1,13] seats [101,107] and [122,128]
+	// section C is rows [14,26] seats [108,121]
+	// section D is rows [14,26] seats [101,7] and [122,28]
 	private static int[][] createTickets(){
 		int [][]tickets = new int[27][29];
 		for (int i = 1; i<27; i++){
@@ -49,7 +52,8 @@ class TicketServer {
 		}
 		return tickets;	
 	}
-	
+
+	// Checks best available seat AND marks it as taken
 	synchronized static int[] bestAvailableSeat(int[][] tickets){
 		int []seat = new int[4]; //0 holds section, 1 holds row, 2 holds seat. 3 holds a flag
 		
@@ -135,6 +139,8 @@ class TicketServer {
 	
 }
 
+// Simulates the single server
+// Has an infinite loop (to handle the infinite que of customers)
 class ThreadedTicketServer implements Runnable {
 
 	//String hostname = "127.0.0.1";

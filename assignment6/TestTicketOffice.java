@@ -12,9 +12,9 @@ import java.util.Random;
 
 public class TestTicketOffice {
 
-//	public static int score = 0;
-
-/*	@Test
+	//	Creates one server and one client
+	//	Sends one request
+	@Test
 	public void basicServerTest() {
 		try {
 			TicketServer.start(16789);
@@ -25,6 +25,8 @@ public class TestTicketOffice {
 		client.requestTicket();
 	}
 
+	// Creates one serves and two clients
+	// Two requests each
 	@Test
 	public void testServerCachedHardInstance() {
 		try {
@@ -38,8 +40,9 @@ public class TestTicketOffice {
 		client2.requestTicket();
 
 	}
-	
-	
+
+	//	Creates one server and three clients
+	//	Three requests
 	@Test
 	public void twoNonConcurrentServerTest() {
 		try {
@@ -55,6 +58,8 @@ public class TestTicketOffice {
 		c3.requestTicket();
 	}
 
+	//	Creates one server and three clients
+	//	3 Synchronized Threads
 	@Test
 	public void twoConcurrentServerTest() {
 		try {
@@ -93,9 +98,10 @@ public class TestTicketOffice {
 
 	}
 
-		
+		//	Creates one server and one client
+		//	Atleast 800+ requests (random)
 		@Test
-		public void randomNumberOfClientsTest () {
+		public void randomNumberOfClientsTest() {
 			try {
 				TicketServer.start(16792);
 			} catch (Exception e) {
@@ -108,11 +114,13 @@ public class TestTicketOffice {
 				c1.requestTicket();
 			}
 		}
-		*/
 
-		
+
+		//	Creates one server and three clients
+		//	Atleast 800+ requests (random)
+		//	3 Synchronized Threads
 		@Test
-		public void randomNumberOfClientsTest () {
+		public void randomNumberOfThreadedClientsTest() {
 			try {
 				TicketServer.start(16792);
 			} catch (Exception e) {
@@ -120,7 +128,7 @@ public class TestTicketOffice {
 			}
 			Random r = new Random();
 			int numberOfClients = r.nextInt(1000 - 800) + 800;
-			String clientName = "client ";
+			//String clientName = "client ";
 			final TicketClient c1 = new TicketClient("Booth A");
 			final TicketClient c2 = new TicketClient("Booth B");
 			final TicketClient c3 = new TicketClient("Booth C");

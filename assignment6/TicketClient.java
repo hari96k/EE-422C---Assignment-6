@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+
+//	Threaded version of Ticket Client
+// Represents our Box Office, but allows for multithreading (ie multiple box offices)
 class ThreadedTicketClient implements Runnable {
     private String hostname = "127.0.0.1";
     private String threadname = "X";
@@ -22,7 +25,8 @@ class ThreadedTicketClient implements Runnable {
 		this.threadname = threadname;
 	}
 
-	public String getServerOutput(){
+	// Used to transmit server output to TicketClient objects
+	String getServerOutput(){
 		return serverOutput;
 	}
 
@@ -35,7 +39,7 @@ class ThreadedTicketClient implements Runnable {
 			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			out.println("request");
 			//System.out.println("Client sent request");
-			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+			//BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 			serverOutput = in.readLine();
 			echoSocket.close();
 		} catch (Exception e) {
@@ -44,15 +48,16 @@ class ThreadedTicketClient implements Runnable {
 	}
 }
 
+// Ticket Client represents Box Office
 class TicketClient {
 	private ThreadedTicketClient tc;
 	//String result = "dummy";
 	private String hostName = "";
 	private String threadName = "";
 	private String serverOutput;
-	boolean flag = true;
+	private boolean flag = true;
 
-	private TicketClient(String hostname, String threadname) {
+	TicketClient(String hostname, String threadname) {
 		tc = new ThreadedTicketClient(this, hostname, threadname);
 		hostName = hostname;
 		threadName = threadname;
@@ -66,9 +71,8 @@ class TicketClient {
 		this("localhost", "unnamed client");
 	}
 
-
+	// Requests ticket from the threaded object of this ticket client object
 	void requestTicket() {
-		//int[] seat = bestAvailableSeat(ticket);
 		tc.run();
 		String serverOutput = tc.getServerOutput();
 		if (serverOutput.equals("0 0 0 0")){
@@ -84,24 +88,26 @@ class TicketClient {
 		}
 	}
 
+	// Outputs to the console the reservation
 	private String printTicketSeat(String name){
 		String []array = name.split("[ ]+");
 		int rowNumber = Integer.parseInt(array[1]);
 		int section = Integer.parseInt(array[0]);
-		String output = threadName + " reserved seat" + " " + array[2] + " in row " 
+		int seatNumber = Integer.parseInt(array[2]) + 100;
+		return threadName + " reserved seat" + " " + seatNumber + " in row "
 				+ getCharForNumber(rowNumber) + " in section " + getCharForNumber(section);
-		return output;
 	}
-	
+
+	// Converts to Char
 	private String getCharForNumber(int i) {
 	    return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
 	}
 	
-	void sleep() {
+/*	void sleep() {
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
